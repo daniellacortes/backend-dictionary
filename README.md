@@ -38,3 +38,16 @@ Diante disso, a princípio, para o projeto será utilizado:
 - descrição diária (no mínimo) das atividades realizadas no README.md.
 
 ### Instalação do Projeto
+
+Para a instalação do projeto, foi iniciado dentro do terminal Ubuntu (usando WSL2) um projeto Laravel usando Sail para a conteinerização no Docker.
+Na sequência, o projeto iniciado foi sincronizado com o repositório remoto do GitHub e do BitBucket.
+
+### Criação do Banco de Dados
+Localmente, foi criado o banco de dados e o arquivo .env foi configurado para que o projeto possa se conectar ao banco de dados.
+Após, foi criada a tabela "Words" através de uma migration para que o projeto possa ser executado, bem como o modelo da mencionada tabela.
+
+### Importação das Palavras
+Na sequência, foi criado um comando que possui uma função para que o projeto possa importar as palavras do [arquivo](https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words_dictionary.json) disponibilizado no repositório da API Free Dictionay API para o banco de dados.
+Como o arquivo estava em formato JSON, foi necessário realizar o tratamento dos dados no arquivo de Comando para que fosse possível importar as palavras para o banco de dados.
+Ocorre que ao tentar inserir as palavras no banco de dados, foi identificado que o arquivo possuía mais de 300.000 palavras, o que resultou em um tempo de execução muito grande e, por consequência, um erro de timeout.
+Diante disso, o array de palavras foi dividido em partes menores, através do método array_chunck, e, em seguida, inseridas no banco de dados. Arbitrariamente foi estipulado o tamanho do array de 1000 palavras, o que gerou resultados satisfatórios. Devido ao curto prazo, não foi possível implementar um tratamento para que o tamanho do array fosse dinâmico, de modo que o tempo de execução atingisse a sua melhor performance.
